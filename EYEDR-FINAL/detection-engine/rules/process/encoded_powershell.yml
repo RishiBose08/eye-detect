@@ -1,0 +1,27 @@
+id: EYEDR-001
+
+title: Encoded PowerShell
+
+description: Detects PowerShell execution using encoded command arguments.
+
+severity: high
+
+conditions:
+  - field: category
+    operator: equals
+    value: process_create
+
+  - field: image
+    operator: ends_with
+    value: "\\powershell.exe"
+
+  - field: command_line
+    operator: contains_any
+    value:
+      - "-enc"
+      - "-encodedcommand"
+
+mitre:
+  tactic: Execution
+  technique: T1059.001
+  name: PowerShell
